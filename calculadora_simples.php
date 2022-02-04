@@ -1,44 +1,27 @@
 <?php
+	//include ou require permitem fazer a importação de arquivos no PHP
+	//utilizando a opção com _once, o servidor realiza uma restrição para encontra somente uma vez o arquivo(melhor opção)
+	
+	//include()
+	//include_once()
+
+	//require()
+	//require_once
+
+	//import do arquivo de configuração de variaveis
+	require_once('./modulo/config.php');
+
+	//import arquivo funções para calculos matemáticos	
+
+	require_once('./modulo/calculos.php');
+
+
+
+	//Declaração de variáveis
 	$valor1 = (double) 0;
 	$valor2 = (double) 0;
 	$resultado =  (double) 0;
 	$opcao = (string) null;
-
-	function operacaoMatematica ($numero1, $numero2, $operacao)
-	{	
-		//Declaração de variaveis locais da função (todas as variaveis recebem os dados do argumento da function)
-		$num1 = (double) $numero1;
-		$num2 = (double) $numero2;
-		$tipoCalculo = (string) $operacao; 
-		$result = (double) 0;
-
-		//Processamento do calculo das operações com switch case
-		switch ($tipoCalculo) 
-		{
-			case ('SOMAR'):
-				$result = $num1 + $num2;
-				break;
-			case ('SUBTRAIR'):
-				$result = $num1 - $num2;
-				break;
-			case ('MULTIPLICAR'):
-				$result = $num1 * $num2;
-				break;
-			case ('DIVIDIR'):	
-				if($num2 == 0)
-					echo('<script> alert("Não é possíver realizar uma divisão onde o divisor é igual a 0")</script>');
-				else
-					$result = $num1 / $num2;
-				break;		
-		}
-			
-			//number_format - permite ajustar a quantidade de casas decimais realizando o arredondamento
-			//$resultado = number_format($resultado,2);
-			//round() - permite ajustar a quantidade de casas decimais realizando o arredondamento
-			$result = round($result,2);
-		
-		return $result;
-	}
 
 	/*
 		getttype() - permite verificar qual o tipo de dados de uma variavel
@@ -66,17 +49,17 @@
 		
 		//Validação de tratamento para caixa vazia
 		if($_POST['txtn1'] == "" || $_POST['txtn2'] == "")
-			echo('<script> alert("Favor preencher todas as caixas")</script>');	
+			echo(ERRO_MSG_CAIXA_VAZIA);	
 		else
 		{	
 			//Validação de tratamento de erro para rdo sem escolha
 			if(!isset($_POST['rdocalc']))
-				echo('<script>alert("Favor escolher uma operação válida")</script>');
+				echo(ERRO_MSG_OPERACAO_CALCULO);
 			else
 			{	
 				//Validação chegada de string
 				if(!is_numeric($valor1) || !is_numeric($valor2))
-					echo('<script>alert("Não é possível realizar calculos com dados não numéricos!");</script>');	
+					echo(ERRO_MSG_CARACTER_INVALIDO_TEXTO);	
 				else
 				{
 					//Apenas podemos receber o valor do rdo quando ele existir
